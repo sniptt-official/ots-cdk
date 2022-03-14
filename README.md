@@ -2,7 +2,7 @@
 
 Initialise a new CDK app if you don't already have one:
 
-```sh
+```
 mkdir dev; cd dev
 cdk init app --language typescript
 npx cdk bootstrap --profile dev
@@ -10,14 +10,14 @@ npx cdk bootstrap --profile dev
 
 Make sure you're authenticated with the GitHub registry (GitHub PAT with `registry:read` access is enough):
 
-```sh
+```
 npm config set @sniptt-official:registry https://npm.pkg.github.com
 npm config set -- '//npm.pkg.github.com/:_authToken' $GITHUB_TOKEN
 ```
 
 Install the `ots-aws` construct:
 
-```sh
+```
 npm i @sniptt-official/ots-aws
 ```
 
@@ -46,7 +46,7 @@ export class DevStack extends Stack {
 
 Deploy:
 
-```sh
+```
 npx cdk deploy DevStack --profile dev
 ```
 
@@ -59,7 +59,7 @@ apiKey: YOUR_API_KEY
 
 Use `ots` as before:
 
-```sh
+```
 > ots new -x 2h
 Using config file: /Users/xxx/.ots.yaml
 Enter your secret: ***
