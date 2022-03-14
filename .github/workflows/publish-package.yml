@@ -37,5 +37,5 @@ jobs:
       - name: Publish
         run: |
           npx semantic-release --dry-run
-        # env:
-        #   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
