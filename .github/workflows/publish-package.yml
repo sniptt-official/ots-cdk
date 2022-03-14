@@ -36,8 +36,8 @@ jobs:
           npm run format:check
           npm run build
 
-      # - name: Publish
-      #   run: |
-      #     npm publish
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish
+        run: |
+          npx semantic-release --dry-run
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

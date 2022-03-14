@@ -1,0 +1,21 @@
+{
+  "branches": ["main"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    ["@semantic-release/npm", { "tarballDir": "dist" }],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "package.json", "package-lock.json"]
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": ["CHANGELOG.md", "dist/*.tgz"]
+      }
+    ]
+  ]
+}
