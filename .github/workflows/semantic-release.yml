@@ -10,7 +10,7 @@ env:
 
 jobs:
   semantic-release:
-    name: Run semantic release
+    name: Semantic release
     runs-on: ubuntu-latest
 
     permissions:
@@ -29,11 +29,11 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Publish
+      - name: Run semantic release
         run: |
           npm ci
           npx semantic-release
         env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          # GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
