@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/sniptt-official/ots-aws/compare/v1.2.1...v1.2.2) (2022-03-14)
+
+
+### Bug Fixes
+
+* remove location ([d732db7](https://github.com/sniptt-official/ots-aws/commit/d732db7dd2900a4b1721187b6c2c8329c0cc76a0))
+
 ## [1.2.1](https://github.com/sniptt-official/ots-aws/compare/v1.2.0...v1.2.1) (2022-03-14)
 
 
