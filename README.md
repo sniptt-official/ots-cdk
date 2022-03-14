@@ -57,9 +57,17 @@ apiUrl: https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/prod/secrets
 apiKey: YOUR_API_KEY
 ```
 
+Use `ots` as before:
+
+```sh
+ots new -x 2h
+```
+
 ## Contributing
 
-### The Construct package
+### Build and test
+
+#### The Construct package
 
 ```
 npm ci
@@ -67,7 +75,7 @@ npm run build
 npm test
 ```
 
-### The Lambda functions package
+#### The Lambda functions package
 
 ```
 cd lambda-functions
