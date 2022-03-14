@@ -17,9 +17,9 @@
   },
   "prettier": "@slavovojacek/prettier-config",
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^8.0.2",
+    "@semantic-release/changelog": "^6",
+    "@semantic-release/git": "^10",
+    "@semantic-release/github": "^8",
     "@slavovojacek/prettier-config": "^0",
     "@slavovojacek/tsconfig": "^0",
     "@types/jest": "^27",
@@ -27,7 +27,7 @@
     "aws-cdk-lib": "^2.16",
     "constructs": "^10.0",
     "jest": "^27",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^19",
     "ts-jest": "^27",
     "typescript": "^4.6"
   },
@@ -36,6 +36,6 @@
     "constructs": "^10.0"
   },
   "dependencies": {
-    "env-var": "^7.1"
+    "env-var": "^7"
   }
 }
