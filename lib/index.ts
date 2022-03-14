@@ -1,4 +1,4 @@
-import type { aws_apigateway, aws_dynamodb, aws_lambda } from 'aws-cdk-lib';
+import { CfnOutput, type aws_apigateway, type aws_dynamodb, type aws_lambda } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { URL } from 'url';
 
@@ -53,6 +53,12 @@ export class Ots extends Construct {
       table: this.table,
       webViewUrl: new URL(webViewUrl),
       functionProps
+    });
+
+    // Useful outputs
+    new CfnOutput(this, 'RateLimitedApiKeyId', {
+      value: this.rateLimitedApiKey.keyId,
+      description: 'The id of the Api Key used for rate-limiting'
     });
   }
 }
