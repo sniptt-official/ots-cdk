@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk';
+import type { DynamoDB } from 'aws-sdk';
 
 import type { TSecret } from '../secrets/secret';
 

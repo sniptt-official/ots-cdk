@@ -1,11 +1,5 @@
-import {
-  Stack,
-  type StackProps,
-  type aws_apigateway,
-  type aws_dynamodb,
-  type aws_lambda_nodejs
-} from 'aws-cdk-lib';
-import type { Construct } from 'constructs';
+import type { aws_apigateway, aws_dynamodb, aws_lambda } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 import { Table } from './constructs/table';
 import { ApiGateway } from './constructs/apiGateway';
@@ -13,36 +7,50 @@ import { RateLimitedApiKey } from './constructs/rateLimitedApiKey';
 import { CreateSecretFunction } from './constructs/lambda/createSecretFunction';
 import { GetSecretFunction } from './constructs/lambda/getSecretFunction';
 
-export type OtsProps = StackProps & {
+export type OtsProps = {
   tableProps?: Partial<aws_dynamodb.TableProps>;
   restApiProps?: Partial<aws_apigateway.RestApiProps>;
   rateLimitedApiKeyProps?: Partial<aws_apigateway.RateLimitedApiKeyProps>;
-  nodejsFunctionProps?: Partial<aws_lambda_nodejs.NodejsFunctionProps>;
+  functionProps?: Partial<aws_lambda.FunctionProps>;
 };
 
-export class Ots extends Stack {
+export class Ots extends Construct {
+  readonly table: Table;
+  readonly apiGateway: ApiGateway;
+  readonly rateLimitedApiKey: RateLimitedApiKey;
+  readonly createSecretFunction: CreateSecretFunction;
+  readonly getSecretFunction: GetSecretFunction;
+
   constructor(
     scope: Construct,
     id: string,
-    { tableProps, restApiProps, rateLimitedApiKeyProps, nodejsFunctionProps, ...props }: OtsProps
+    { tableProps, restApiProps, rateLimitedApiKeyProps, functionProps }: OtsProps
   ) {
-    super(scope, id, props);
+    super(scope, id);
 
     // Create a table for persisting secrets
-    const table = new Table(this, 'Table', { tableProps });
+    this.table = new Table(this, 'Table', { tableProps });
 
-    // Create a rate-limited API
-    const apiGateway = new ApiGateway(this, 'ApiGateway', { restApiProps });
-    new RateLimitedApiKey(this, 'RateLimitedApiKey', { api: apiGateway, rateLimitedApiKeyProps });
+    // Create a REST API
+    this.apiGateway = new ApiGateway(this, 'ApiGateway', { restApiProps });
+
+    // Add rate-limiting
+    this.rateLimitedApiKey = new RateLimitedApiKey(this, 'RateLimitedApiKey', {
+      api: this.apiGateway,
+      rateLimitedApiKeyProps
+    });
 
     // Create Lambda functions to handle business logic
-    const functionProps = {
-      apiGateway,
-      table,
-      nodejsFunctionProps
-    };
+    this.createSecretFunction = new CreateSecretFunction(this, 'CreateSecretFunction', {
+      apiGateway: this.apiGateway,
+      table: this.table,
+      functionProps
+    });
 
-    new CreateSecretFunction(this, 'CreateSecretFunction', functionProps);
-    new GetSecretFunction(this, 'GetSecretFunction', functionProps);
+    this.getSecretFunction = new GetSecretFunction(this, 'GetSecretFunction', {
+      apiGateway: this.apiGateway,
+      table: this.table,
+      functionProps
+    });
   }
 }
