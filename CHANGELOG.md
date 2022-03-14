@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/sniptt-official/ots-aws/compare/v1.0.6...v1.1.0) (2022-03-14)
+
+
+### Features
+
+* location and view url ([ec63999](https://github.com/sniptt-official/ots-aws/commit/ec63999eda9a0999ee59a9bc8ed7281b9427f98b))
+
 ## [1.0.6](https://github.com/sniptt-official/ots-aws/compare/v1.0.5...v1.0.6) (2022-03-14)
 
 
