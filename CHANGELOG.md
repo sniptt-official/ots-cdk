@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/sniptt-official/ots-aws/compare/v1.0.4...v1.0.5) (2022-03-14)
+
+
+### Bug Fixes
+
+* ci test flows ([#2](https://github.com/sniptt-official/ots-aws/issues/2)) ([9801c76](https://github.com/sniptt-official/ots-aws/commit/9801c76841622b4a0524c844b45cf1a1076807b9))
+
 ## [1.0.4](https://github.com/sniptt-official/ots-aws/compare/v1.0.3...v1.0.4) (2022-03-14)
 
 
