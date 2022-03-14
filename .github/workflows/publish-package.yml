@@ -1,9 +1,5 @@
 name: publish-package
 
-# on:
-#   push:
-#     tags:
-#       - "v*"
 on:
   push:
     branches:
@@ -15,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
+      issues: write
+      pull-requests: write
       packages: write
 
     steps:
