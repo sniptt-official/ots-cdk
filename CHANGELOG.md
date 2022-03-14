@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/sniptt-official/ots-aws/compare/v1.0.0...v1.0.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* deps ([42fcabb](https://github.com/sniptt-official/ots-aws/commit/42fcabb3e6739ebf08ddf20cece0a12cdbed6037))
+
 # 1.0.0 (2022-03-14)
 
 
