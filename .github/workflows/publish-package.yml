@@ -29,13 +29,9 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Install deps and build from source
-        run: |
-          npm ci
-          npm run build
-
       - name: Publish
         run: |
+          npm ci
           npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
