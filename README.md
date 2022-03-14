@@ -40,7 +40,7 @@ export class DevStack extends Stack {
 Deploy:
 
 ```
-npx cdk deploy Dev --profile dev
+npx cdk deploy DevStack --profile dev
 ```
 
 Grab your API Gateway URL, API key and test:

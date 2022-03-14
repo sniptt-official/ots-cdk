@@ -12,6 +12,7 @@ export type OtsProps = {
   restApiProps?: Partial<aws_apigateway.RestApiProps>;
   rateLimitedApiKeyProps?: Partial<aws_apigateway.RateLimitedApiKeyProps>;
   functionProps?: Partial<aws_lambda.FunctionProps>;
+  webViewUrl?: string;
 };
 
 export class Ots extends Construct {
@@ -24,7 +25,13 @@ export class Ots extends Construct {
   constructor(scope: Construct, id: string, props: OtsProps = {}) {
     super(scope, id);
 
-    const { tableProps, restApiProps, rateLimitedApiKeyProps, functionProps } = props;
+    const {
+      tableProps,
+      restApiProps,
+      rateLimitedApiKeyProps,
+      functionProps,
+      webViewUrl = 'https://ots.sniptt.com/view'
+    } = props;
 
     // Create a table for persisting secrets
     this.table = new Table(this, 'Table', { tableProps });
@@ -42,12 +49,14 @@ export class Ots extends Construct {
     this.createSecretFunction = new CreateSecretFunction(this, 'CreateSecretFunction', {
       apiGateway: this.apiGateway,
       table: this.table,
+      webViewUrl,
       functionProps
     });
 
     this.getSecretFunction = new GetSecretFunction(this, 'GetSecretFunction', {
       apiGateway: this.apiGateway,
       table: this.table,
+      webViewUrl,
       functionProps
     });
   }

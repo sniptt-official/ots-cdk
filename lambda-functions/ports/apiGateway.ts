@@ -29,12 +29,12 @@ type APIGatewayProxyEventHandler<
 >;
 
 export const formatJSONResponse = (
-  response: Record<string, unknown>,
+  jsonResponse: Record<string, unknown>,
   statusCode = 200,
   headers = {}
 ) => ({
   statusCode,
-  body: JSON.stringify(response),
+  body: JSON.stringify(jsonResponse),
   headers
 });
 
