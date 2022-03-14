@@ -1,4 +1,4 @@
-name: publish-package
+name: semantic-release
 
 on:
   push:
@@ -9,8 +9,8 @@ env:
   NPM_CONFIG_LOGLEVEL: error
 
 jobs:
-  publish:
-    name: Build and Publish
+  semantic-release:
+    name: Run semantic release
     runs-on: ubuntu-latest
 
     permissions:
