@@ -29,11 +29,20 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Run semantic release
+      - name: Build the Lambda functions package
+        working-directory: ./lambda-functions
         run: |
           npm ci
           npm run build
-          npx semantic-release
+
+      - name: Build the construct package
+        run: |
+          npm ci
+          npm run build
+          cp -r lambda-functions/dist dist/constructs/lambda/assets
+
+      - name: Run semantic release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

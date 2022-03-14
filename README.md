@@ -8,17 +8,33 @@ cdk init app --language typescript
 npx cdk bootstrap --profile dev
 ```
 
+Make sure you're authenticated with the GitHub registry (GitHub PAT with `registry:read` access is enough):
+
+```
+npm config set @sniptt-official:registry https://npm.pkg.github.com
+npm config set -- '//npm.pkg.github.com/:_authToken' $GITHUB_TOKEN
+```
+
 Install the `ots-aws` construct:
 
 ```
-echo '@sniptt-official:registry=https://npm.pkg.github.com' >> .npmrc
 npm i @sniptt-official/ots-aws
 ```
 
 Add the `ots-aws` construct to your stack:
 
-```
-# ...
+```ts
+import { Ots } from '@sniptt-official/ots-aws';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+
+export class DevStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
+
+    const ots = new Ots(this, 'Ots');
+  }
+}
 ```
 
 Deploy:

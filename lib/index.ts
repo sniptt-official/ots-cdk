@@ -21,12 +21,10 @@ export class Ots extends Construct {
   readonly createSecretFunction: CreateSecretFunction;
   readonly getSecretFunction: GetSecretFunction;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    { tableProps, restApiProps, rateLimitedApiKeyProps, functionProps }: OtsProps
-  ) {
+  constructor(scope: Construct, id: string, props: OtsProps = {}) {
     super(scope, id);
+
+    const { tableProps, restApiProps, rateLimitedApiKeyProps, functionProps } = props;
 
     // Create a table for persisting secrets
     this.table = new Table(this, 'Table', { tableProps });
