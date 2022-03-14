@@ -28,7 +28,7 @@ jobs:
           npm ci --ignore-scripts
           npm run format:check
           npm run lint:check
-          npm run build
+          npm run build --ignore-scripts
         # TODO: add test step
 
   test-lambda-functions:
