@@ -60,7 +60,18 @@ apiKey: YOUR_API_KEY
 Use `ots` as before:
 
 ```sh
-ots new -x 2h
+> ots new -x 2h
+Using config file: /Users/xxx/.ots.yaml
+Enter your secret: ***
+Your secret is now available on the below URL.
+
+https://my-ots-web-view.com/burn-secret?id=xxx&ref=ots-cli&region=us-east-1&v=debug#xxx
+
+You should only share this URL with the intended recipient.
+
+Please note that once retrieved, the secret will no longer
+be available for viewing. If not viewed, the secret will
+automatically expire at approximately xx xxx xxxx xx:xx:xx.
 ```
 
 ## Contributing
