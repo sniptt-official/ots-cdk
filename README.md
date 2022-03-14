@@ -8,7 +8,9 @@ cdk init app --language typescript
 npx cdk bootstrap --profile dev
 ```
 
-Make sure you're authenticated with the GitHub registry (GitHub PAT with `registry:read` access is enough):
+Make sure you're authenticated with the GitHub registry using a PAT:
+
+https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc
 
 ```
 npm config set @sniptt-official:registry https://npm.pkg.github.com
