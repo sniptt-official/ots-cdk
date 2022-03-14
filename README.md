@@ -1,12 +1,58 @@
-# Welcome to your CDK TypeScript Construct Library project
+## Usage
 
-You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`Ots`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
+Initialise a new CDK app if you don't already have one:
 
-The construct defines an interface (`OtsProps`) to configure the visibility timeout of the queue.
+```
+mkdir dev; cd dev
+cdk init app --language typescript
+npx cdk bootstrap --profile dev
+```
 
-## Useful commands
+Install the `ots-aws` construct:
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
+```
+echo '@sniptt-official:registry=https://npm.pkg.github.com' >> .npmrc
+npm i @sniptt-official/ots-aws
+```
+
+Add the `ots-aws` construct to your stack:
+
+```
+# ...
+```
+
+Deploy:
+
+```
+npx cdk deploy Dev --profile dev
+```
+
+Grab your API Gateway URL, API key and test:
+
+```
+curl ...
+```
+
+## Contributing
+
+### Build
+
+```
+npm ci
+npm run build
+```
+
+### Test
+
+#### The Construct package
+
+```
+npm test
+```
+
+#### The Lambda functions package
+
+```
+cd lambda-functions
+npm test
+```
