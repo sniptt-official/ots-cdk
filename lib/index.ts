@@ -1,5 +1,6 @@
 import type { aws_apigateway, aws_dynamodb, aws_lambda } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { URL } from 'url';
 
 import { Table } from './constructs/table';
 import { ApiGateway } from './constructs/apiGateway';
@@ -12,7 +13,7 @@ export type OtsProps = {
   restApiProps?: Partial<aws_apigateway.RestApiProps>;
   rateLimitedApiKeyProps?: Partial<aws_apigateway.RateLimitedApiKeyProps>;
   functionProps?: Partial<aws_lambda.FunctionProps>;
-  webViewUrl?: string;
+  webViewUrl: string;
 };
 
 export class Ots extends Construct {
@@ -22,16 +23,10 @@ export class Ots extends Construct {
   readonly createSecretFunction: CreateSecretFunction;
   readonly getSecretFunction: GetSecretFunction;
 
-  constructor(scope: Construct, id: string, props: OtsProps = {}) {
+  constructor(scope: Construct, id: string, props: OtsProps) {
     super(scope, id);
 
-    const {
-      tableProps,
-      restApiProps,
-      rateLimitedApiKeyProps,
-      functionProps,
-      webViewUrl = 'https://ots.sniptt.com/view'
-    } = props;
+    const { tableProps, restApiProps, rateLimitedApiKeyProps, functionProps, webViewUrl } = props;
 
     // Create a table for persisting secrets
     this.table = new Table(this, 'Table', { tableProps });
@@ -49,14 +44,14 @@ export class Ots extends Construct {
     this.createSecretFunction = new CreateSecretFunction(this, 'CreateSecretFunction', {
       apiGateway: this.apiGateway,
       table: this.table,
-      webViewUrl,
+      webViewUrl: new URL(webViewUrl),
       functionProps
     });
 
     this.getSecretFunction = new GetSecretFunction(this, 'GetSecretFunction', {
       apiGateway: this.apiGateway,
       table: this.table,
-      webViewUrl,
+      webViewUrl: new URL(webViewUrl),
       functionProps
     });
   }
