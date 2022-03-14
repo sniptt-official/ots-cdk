@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  NPM_CONFIG_LOGLEVEL: error
+
 jobs:
   publish:
     name: Build and Publish
@@ -26,16 +29,9 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Install deps
-        run: npm ci
-
-      - name: Check formatting and build from source
-        run: |
-          npm run format:check
-          npm run build
-
       - name: Publish
         run: |
+          npm ci
           npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

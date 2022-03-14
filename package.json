@@ -8,18 +8,23 @@
     "!dist/*.tsbuildinfo"
   ],
   "scripts": {
-    "postinstall": "cd lambda-functions; npm ci",
-    "build": "tsc && cd lambda-functions; npm run build",
-    "postbuild": "cp -r lambda-functions/dist dist/constructs/lambda/assets",
+    "build": "tsc",
+    "prepack": "tsc; cd lambda-functions; npm ci; npm run build; cp -r dist ../dist/constructs/lambda/assets",
     "test": "jest",
-    "format": "prettier --write '{.github,lambda-functions,lib,test}/**' '*.json'",
-    "format:check": "prettier --check '{.github,lambda-functions,lib,test}/**' '*.json'"
+    "format": "prettier --write '{.github,lib,test}/**' '*.json'",
+    "format:check": "prettier --check '{.github,lib,test}/**' '*.json'",
+    "lint": "eslint '{lib,test}/**/*.ts' --fix",
+    "lint:check": "eslint '{lib,test}/**/*.ts'"
   },
   "prettier": "@slavovojacek/prettier-config",
+  "eslintConfig": {
+    "extends": "@slavovojacek/eslint-config"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "^6",
     "@semantic-release/git": "^10",
     "@semantic-release/github": "^8",
+    "@slavovojacek/eslint-config": "^0",
     "@slavovojacek/prettier-config": "^0",
     "@slavovojacek/tsconfig": "^0",
     "@types/jest": "^27",

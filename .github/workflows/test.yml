@@ -1,0 +1,57 @@
+name: test
+
+on:
+  - pull_request
+
+env:
+  NPM_CONFIG_LOGLEVEL: error
+
+jobs:
+  test-lib:
+    name: Test lib
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Check format, lint and build from source
+        run: |
+          npm ci
+          npm run format:check
+          npm run lint:check
+          npm run build
+        # TODO: add test step
+
+  test-lambda-functions:
+    name: Test lambda-functions
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: Check format, lint and build from source
+        working-directory: ./lambda-functions
+        run: |
+          npm ci
+          npm run format:check
+          npm run lint:check
+          npm run build
+        # TODO: add test step

@@ -6,9 +6,9 @@ import type * as lambda from 'aws-lambda';
 type OverrideEventProps = 'body' | 'pathParameters' | 'queryStringParameters' | 'headers';
 
 type APIGatewayProxyEvent<
-  Body extends unknown,
-  PathParams extends unknown,
-  QueryStringParams extends unknown,
+  Body,
+  PathParams,
+  QueryStringParams,
   Headers extends Record<string, unknown> = Record<string, unknown>
 > = Omit<lambda.APIGatewayProxyEvent, OverrideEventProps> & {
   rawBody: string;
@@ -19,9 +19,9 @@ type APIGatewayProxyEvent<
 };
 
 type APIGatewayProxyEventHandler<
-  Body extends unknown,
-  PathParams extends unknown,
-  QueryStringParams extends unknown,
+  Body,
+  PathParams,
+  QueryStringParams,
   Headers extends Record<string, unknown> = Record<string, unknown>
 > = lambda.Handler<
   APIGatewayProxyEvent<Body, PathParams, QueryStringParams, Headers>,
@@ -39,9 +39,9 @@ export const formatJSONResponse = (
 });
 
 export const middify = <
-  Body extends unknown = unknown,
-  PathParams extends unknown = unknown,
-  QueryStringParams extends unknown = unknown,
+  Body = unknown,
+  PathParams = unknown,
+  QueryStringParams = unknown,
   Headers extends Record<string, unknown> = Record<string, unknown>
 >(
   handler: APIGatewayProxyEventHandler<Body, PathParams, QueryStringParams, Headers>
