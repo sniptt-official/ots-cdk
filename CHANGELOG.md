@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/sniptt-official/ots-aws/compare/v1.1.0...v1.2.0) (2022-03-14)
+
+
+### Features
+
+* add xray ([#3](https://github.com/sniptt-official/ots-aws/issues/3)) ([48a6afd](https://github.com/sniptt-official/ots-aws/commit/48a6afd495b48308c831c23c21e55aaa9f5da99c))
+
 # [1.1.0](https://github.com/sniptt-official/ots-aws/compare/v1.0.6...v1.1.0) (2022-03-14)
 
 
