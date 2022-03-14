@@ -50,7 +50,7 @@ Deploy:
 npx cdk deploy DevStack --profile dev
 ```
 
-Grab your new API Gateway URL, API key and configure your local `~/.ots.yaml` config:
+Grab your API Gateway URL, API key and configure `~/.ots.yaml` (or whatever you provide to `--config`):
 
 ```yaml
 apiUrl: https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/prod/secrets
