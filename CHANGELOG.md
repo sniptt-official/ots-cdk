@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/sniptt-official/ots-aws/compare/v1.2.0...v1.2.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* add api key id output ([1785eac](https://github.com/sniptt-official/ots-aws/commit/1785eacc1b6b3a43753a6f9aede85933c727e2ef))
+
 # [1.2.0](https://github.com/sniptt-official/ots-aws/compare/v1.1.0...v1.2.0) (2022-03-14)
 
 
