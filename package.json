@@ -8,8 +8,9 @@
     "!dist/*.tsbuildinfo"
   ],
   "scripts": {
-    "build": "tsc",
-    "prepack": "tsc; cd lambda-functions; npm ci; npm run build; cp -r dist ../dist/constructs/lambda/assets",
+    "postinstall": "cd lambda-functions; npm ci",
+    "build": "tsc; cd lambda-functions; npm run build",
+    "postbuild": "cp -r lambda-functions/dist dist/constructs/lambda/assets",
     "test": "jest",
     "format": "prettier --write '{.github,lib,test}/**' '*.json'",
     "format:check": "prettier --check '{.github,lib,test}/**' '*.json'",

@@ -25,10 +25,10 @@ jobs:
 
       - name: Check format, lint and build from source
         run: |
-          npm ci
+          npm ci --ignore-scripts
           npm run format:check
           npm run lint:check
-          npm run build
+          npx tsc
         # TODO: add test step
 
   test-lambda-functions:
