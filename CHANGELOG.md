@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/sniptt-official/ots-aws/compare/v1.0.5...v1.0.6) (2022-03-14)
+
+
+### Bug Fixes
+
+* props not required ([3c806dd](https://github.com/sniptt-official/ots-aws/commit/3c806dd28fbe2e6e876f4b4b71d94e7b7f822722))
+
 ## [1.0.5](https://github.com/sniptt-official/ots-aws/compare/v1.0.4...v1.0.5) (2022-03-14)
 
 
