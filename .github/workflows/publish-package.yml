@@ -14,9 +14,9 @@ jobs:
     name: Build and Publish
     runs-on: ubuntu-latest
 
-    permissions: 
+    permissions:
       contents: read
-      packages: write 
+      packages: write
 
     steps:
       - name: Checkout
@@ -28,15 +28,14 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
 
-      - name: Prerequisite installation
+      - name: Install deps
+        run: npm ci
+
+      - name: Check formatting and build from source
         run: |
-          npm ci
-          cd lib/constructs/lambda/functions; npm ci
-      # - name: Check formatting and build from source
-      #   run: |
-      #     npm run format:check
-      #     npm run lint:check
-      #     npm run build
+          npm run format:check
+          npm run build
+
       # - name: Publish
       #   run: |
       #     npm publish

@@ -3,7 +3,7 @@ import { join } from 'path';
 
 export const functionProps: Omit<aws_lambda.FunctionProps, 'handler'> = {
   // Function handlers need to be pre-built
-  code: aws_lambda.Code.fromAsset(join(__dirname, 'functions/build')),
+  code: aws_lambda.Code.fromAsset(join(__dirname, 'assets')),
   // See https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html#foundation-arch-adv
   architecture: aws_lambda.Architecture.ARM_64,
   memorySize: 1024,
@@ -14,5 +14,5 @@ export const functionProps: Omit<aws_lambda.FunctionProps, 'handler'> = {
   reservedConcurrentExecutions: 3,
   logRetention: aws_logs.RetentionDays.ONE_WEEK,
   insightsVersion: aws_lambda.LambdaInsightsVersion.VERSION_1_0_119_0,
-  runtime: aws_lambda.Runtime.NODEJS_14_X,
+  runtime: aws_lambda.Runtime.NODEJS_14_X
 };

@@ -1,6 +1,7 @@
 {
   "extends": "@slavovojacek/tsconfig",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "incremental": false
   }
 }

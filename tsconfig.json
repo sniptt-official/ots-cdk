@@ -3,8 +3,7 @@
   "compilerOptions": {
     "inlineSourceMap": true,
     "inlineSources": true,
-    "outDir": "build"
+    "outDir": "dist"
   },
-  "include": ["lib"],
-  "exclude": ["lib/constructs/lambda/functions"]
+  "include": ["lib"]
 }

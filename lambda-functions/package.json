@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "esbuild handlers/*.ts --bundle --outdir=build --platform=node --target=es2020 --external:aws-sdk --sourcemap=inline"
+    "build": "tsc && esbuild handlers/*.ts --bundle --outdir=dist --platform=node --target=es2020 --external:aws-sdk --sourcemap=inline"
   },
   "dependencies": {
     "@middy/core": "^2.5",

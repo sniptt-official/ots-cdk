@@ -1,4 +1,4 @@
-import { DynamoDB } from 'aws-sdk'
+import { DynamoDB } from 'aws-sdk';
 
 import type { TSecret } from '../secrets/secret';
 
@@ -19,21 +19,25 @@ export class DdbRepo implements DdbRepoImpl {
   }
 
   createSecret = async (secret: TSecret) => {
-    await this.ddbDocumentClient.put({
-      TableName: this.tableName,
-      Item: secret,
-      ConditionExpression: 'attribute_not_exists(id)'
-    }).promise();
+    await this.ddbDocumentClient
+      .put({
+        TableName: this.tableName,
+        Item: secret,
+        ConditionExpression: 'attribute_not_exists(id)'
+      })
+      .promise();
 
     return secret;
   };
 
   deleteSecret = async (secretId: string) => {
-    const { Attributes: item } = await this.ddbDocumentClient.delete({
-      TableName: this.tableName,
-      Key: { id: secretId },
-      ReturnValues: 'ALL_OLD'
-    }).promise();
+    const { Attributes: item } = await this.ddbDocumentClient
+      .delete({
+        TableName: this.tableName,
+        Key: { id: secretId },
+        ReturnValues: 'ALL_OLD'
+      })
+      .promise();
 
     return item;
   };
