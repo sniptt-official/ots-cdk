@@ -6,7 +6,7 @@ import { SecretNotFoundError } from './error';
 import { Secret } from './secret';
 
 type CreateSecretInput = { encryptedBytes: string; expiresIn: number };
-type CreateSecretResult = { id: string; expiresAt: number; location: URL; viewUrl: URL };
+type CreateSecretResult = { id: string; expiresAt: number; viewUrl: URL };
 
 type BurnSecretInput = { id: string };
 type BurnSecretResult = { encryptedBytes: string };
@@ -40,15 +40,11 @@ export class Secrets implements SecretsImpl {
 
     const { id, expiresAt } = await this.ddbRepo.createSecret(secret);
 
-    // TODO: Fix
-    const location = new URL('https://test');
-    location.pathname = `/secrets/${id}`;
-
     const viewUrl = new URL(this.webViewUrl.toString());
     viewUrl.searchParams.append('id', id);
     viewUrl.searchParams.append('region', this.region);
 
-    return { id, expiresAt, location, viewUrl };
+    return { id, expiresAt, viewUrl };
   };
 
   burn = async ({ id }: BurnSecretInput): Promise<BurnSecretResult> => {

@@ -10,15 +10,12 @@ export class Lambda {
   }
 
   createSecretHandler = apiGateway.middify<{ encryptedBytes: string; expiresIn: number }>(
-    async ({ body, requestContext }) => {
-      // TODO: Remove after testing
-      console.log(JSON.stringify(requestContext, null, 2));
-
+    async ({ body }) => {
       try {
-        const { id, expiresAt, location, viewUrl } = await this.secrets.create(body);
+        const { id, expiresAt, viewUrl } = await this.secrets.create(body);
 
         const jsonResponse = { id, expiresAt };
-        const headers = { Location: location.toString(), 'X-View-Url': viewUrl.toString() };
+        const headers = { 'X-View-Url': viewUrl.toString() };
 
         return apiGateway.formatJSONResponse(jsonResponse, 201, headers);
       } catch (error) {
