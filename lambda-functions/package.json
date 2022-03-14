@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc && esbuild handlers/*.ts --bundle --outdir=dist --platform=node --target=es2020 --external:aws-sdk --sourcemap=inline",
+    "build": "tsc && esbuild handlers/*.ts --bundle --minify --outdir=dist --platform=node --target=es2020 --external:aws-sdk --sourcemap=inline",
     "format": "prettier --write '{adapters,handlers,ports,secrets,test}/**' '*.json'",
     "format:check": "prettier --check '{adapters,handlers,ports,secrets,test}/**' '*.json'",
     "lint": "eslint '{adapters,handlers,ports,secrets,test}/**/*.ts' --fix",
@@ -18,6 +18,7 @@
     "@middy/http-header-normalizer": "^2.5",
     "@middy/http-json-body-parser": "^2.5",
     "aws-sdk": "^2",
+    "aws-xray-sdk-core": "^3",
     "env-var": "^7",
     "hyperid": "^3"
   },

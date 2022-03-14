@@ -16,7 +16,7 @@ const defaultProps = {
 type AddLambdaIntegrationOptions = {
   path: string;
   method: string;
-  schema?: any;
+  schema?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   methodOptions?: Partial<aws_apigateway.MethodOptions>;
 };
 

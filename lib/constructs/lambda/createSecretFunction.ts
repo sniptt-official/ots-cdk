@@ -1,5 +1,6 @@
 import { aws_lambda } from 'aws-cdk-lib';
 import type { Construct } from 'constructs';
+import { URL } from 'url';
 
 import type { ApiGateway } from '../apiGateway';
 import type { Table } from '../table';
@@ -8,7 +9,7 @@ import { functionProps } from './base';
 type CreateSecretFunctionProps = {
   apiGateway: ApiGateway;
   table: Table;
-  webViewUrl: string;
+  webViewUrl: URL;
   functionProps?: Partial<aws_lambda.FunctionProps>;
 };
 
@@ -20,7 +21,7 @@ export class CreateSecretFunction extends aws_lambda.Function {
       handler: 'createSecret.handler',
       environment: {
         TABLE_NAME: props.table.tableName,
-        WEB_VIEW_URL: props.webViewUrl
+        WEB_VIEW_URL: props.webViewUrl.toString()
       }
     });
 
