@@ -1,5 +1,5 @@
 {
-  "name": "@sniptt-official/ots-aws",
+  "name": "@sniptt-official/ots-cdk",
   "version": "1.2.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

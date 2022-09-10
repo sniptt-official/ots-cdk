@@ -1,4 +1,4 @@
-# ots-aws
+# ots-cdk
 
 The official CDK construct for self-hosted `ots`.
 
@@ -12,9 +12,7 @@ dev> npx cdk init app --language typescript
 dev> npx cdk bootstrap 'aws://123456789012/us-east-1' --profile dev
 ```
 
-Make sure you're authenticated with the GitHub registry using a PAT:
-
-<https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc>
+Make sure you're authenticated with the GitHub registry [using a PAT](https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc):
 
 ```sh
 > npm config set @sniptt-official:registry https://npm.pkg.github.com
@@ -24,13 +22,13 @@ Make sure you're authenticated with the GitHub registry using a PAT:
 Install the `ots-aws` construct:
 
 ```sh
-dev> npm i @sniptt-official/ots-aws
+dev> npm i @sniptt-official/ots-cdk
 ```
 
 Add to your stack:
 
 ```ts
-import { Ots } from '@sniptt-official/ots-aws';
+import { Ots } from '@sniptt-official/ots-cdk';
 import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
