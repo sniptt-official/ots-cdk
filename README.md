@@ -1,29 +1,33 @@
+# ots-aws
+
+The official CDK construct for self-hosted `ots`.
+
 ## Usage
 
-Initialise a new CDK app if you don't already have one:
+Create a new CDK app if you don't already have one:
 
-```
-mkdir dev; cd dev
-cdk init app --language typescript
-npx cdk bootstrap --profile dev
+```sh
+> mkdir dev; cd dev
+dev> npx cdk init app --language typescript
+dev> npx cdk bootstrap 'aws://123456789012/us-east-1' --profile dev
 ```
 
 Make sure you're authenticated with the GitHub registry using a PAT:
 
-https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc
+<https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc>
 
-```
-npm config set @sniptt-official:registry https://npm.pkg.github.com
-npm config set -- '//npm.pkg.github.com/:_authToken' $GITHUB_TOKEN
+```sh
+> npm config set @sniptt-official:registry https://npm.pkg.github.com
+> npm config set -- '//npm.pkg.github.com/:_authToken' $GITHUB_TOKEN
 ```
 
 Install the `ots-aws` construct:
 
-```
-npm i @sniptt-official/ots-aws
+```sh
+dev> npm i @sniptt-official/ots-aws
 ```
 
-Add the `ots-aws` construct to your stack:
+Add to your stack:
 
 ```ts
 import { Ots } from '@sniptt-official/ots-aws';
@@ -48,11 +52,11 @@ export class DevStack extends Stack {
 
 Deploy:
 
-```
-npx cdk deploy DevStack --profile dev
+```sh
+> npx cdk deploy DevStack --profile dev
 ```
 
-Grab your API Gateway URL, API key and configure `~/.ots.yaml` (or whatever you provide to `--config`):
+Grab the resulting API Gateway URL and API key and configure your ots cli via `~/.ots.yaml`:
 
 ```yaml
 apiUrl: https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/prod/secrets
@@ -61,7 +65,7 @@ apiKey: YOUR_API_KEY
 
 Use `ots` as before:
 
-```
+```sh
 > ots new -x 2h
 Using config file: /Users/xxx/.ots.yaml
 Enter your secret: ***
@@ -78,21 +82,9 @@ automatically expire at approximately xx xxx xxxx xx:xx:xx.
 
 ## Contributing
 
-### Build and test
+### Build
 
-#### The Construct package
-
-```
-npm ci
-npm run build
-npm test
-```
-
-#### The Lambda functions package
-
-```
-cd lambda-functions
-npm ci
-npm run build
-npm test
+```sh
+> npm ci
+> npm run build
 ```

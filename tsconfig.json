@@ -1,9 +1,9 @@
 {
-  "extends": "@slavovojacek/tsconfig",
   "compilerOptions": {
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "outDir": "dist"
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true
   },
-  "include": ["lib"]
+  "include": ["lib/index.ts"]
 }
