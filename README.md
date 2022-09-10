@@ -1,3 +1,12 @@
+## new
+
+```
+> # npm i aws-cdk -D
+> npx cdk bootstrap 'aws://123456789012/us-east-1' --profile ots
+```
+
+# ots-cdk
+
 ## Usage
 
 Initialise a new CDK app if you don't already have one:
@@ -10,7 +19,7 @@ npx cdk bootstrap --profile dev
 
 Make sure you're authenticated with the GitHub registry using a PAT:
 
-https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc
+<https://github.com/settings/tokens/new?scopes=read:packages&description=npmrc>
 
 ```
 npm config set @sniptt-official:registry https://npm.pkg.github.com

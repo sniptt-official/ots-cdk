@@ -1,64 +1,72 @@
-import { CfnOutput, type aws_apigateway, type aws_dynamodb, type aws_lambda } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import { URL } from 'url';
-
-import { Table } from './constructs/table';
-import { ApiGateway } from './constructs/apiGateway';
-import { RateLimitedApiKey } from './constructs/rateLimitedApiKey';
-import { CreateSecretFunction } from './constructs/lambda/createSecretFunction';
-import { GetSecretFunction } from './constructs/lambda/getSecretFunction';
-
-export type OtsProps = {
-  tableProps?: Partial<aws_dynamodb.TableProps>;
-  restApiProps?: Partial<aws_apigateway.RestApiProps>;
-  rateLimitedApiKeyProps?: Partial<aws_apigateway.RateLimitedApiKeyProps>;
-  functionProps?: Partial<aws_lambda.FunctionProps>;
-  webViewUrl: string;
-};
+import {
+  Stack,
+  aws_apigateway,
+  aws_lambda,
+  aws_dynamodb,
+  aws_logs,
+} from "aws-cdk-lib";
+import { Construct } from "constructs";
+import { resolve } from "path";
 
 export class Ots extends Construct {
-  readonly table: Table;
-  readonly apiGateway: ApiGateway;
-  readonly rateLimitedApiKey: RateLimitedApiKey;
-  readonly createSecretFunction: CreateSecretFunction;
-  readonly getSecretFunction: GetSecretFunction;
-
-  constructor(scope: Construct, id: string, props: OtsProps) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const { tableProps, restApiProps, rateLimitedApiKeyProps, functionProps, webViewUrl } = props;
-
-    // Create a table for persisting secrets
-    this.table = new Table(this, 'Table', { tableProps });
-
-    // Create a REST API
-    this.apiGateway = new ApiGateway(this, 'ApiGateway', { restApiProps });
-
-    // Add rate-limiting
-    this.rateLimitedApiKey = new RateLimitedApiKey(this, 'RateLimitedApiKey', {
-      api: this.apiGateway,
-      rateLimitedApiKeyProps
+    const table = new aws_dynamodb.Table(this, "Table", {
+      partitionKey: {
+        name: "id",
+        type: aws_dynamodb.AttributeType.STRING,
+      },
+      timeToLiveAttribute: "expiresAt",
+      billingMode: aws_dynamodb.BillingMode.PAY_PER_REQUEST,
+      encryption: aws_dynamodb.TableEncryption.AWS_MANAGED,
     });
 
-    // Create Lambda functions to handle business logic
-    this.createSecretFunction = new CreateSecretFunction(this, 'CreateSecretFunction', {
-      apiGateway: this.apiGateway,
-      table: this.table,
-      webViewUrl: new URL(webViewUrl),
-      functionProps
+    const handler = new aws_lambda.Function(this, "Handler", {
+      runtime: aws_lambda.Runtime.NODEJS_16_X,
+      architecture: aws_lambda.Architecture.ARM_64,
+      memorySize: 512,
+      reservedConcurrentExecutions: 3,
+      logRetention: aws_logs.RetentionDays.THREE_DAYS,
+      code: aws_lambda.Code.fromAsset(`${resolve(__dirname)}/assets/lambda.js`),
+      handler: "index.handler",
+      environment: {
+        REGION: Stack.of(this).region,
+        TABLE_NAME: table.tableName,
+      },
     });
 
-    this.getSecretFunction = new GetSecretFunction(this, 'GetSecretFunction', {
-      apiGateway: this.apiGateway,
-      table: this.table,
-      webViewUrl: new URL(webViewUrl),
-      functionProps
+    table.grantReadWriteData(handler);
+
+    const api = new aws_apigateway.LambdaRestApi(this, "Api", {
+      handler,
+      proxy: false,
+      deployOptions: {
+        methodOptions: {
+          "/*/*": {
+            throttlingRateLimit: 3,
+            throttlingBurstLimit: 3,
+          },
+        },
+      },
     });
 
-    // Useful outputs
-    new CfnOutput(this, 'RateLimitedApiKeyId', {
-      value: this.rateLimitedApiKey.keyId,
-      description: 'The id of the Api Key used for rate-limiting'
+    const plan = api.addUsagePlan("UsagePlan", { name: "Public" });
+
+    const key = new aws_apigateway.RateLimitedApiKey(this, "ApiKey", {
+      // For now the below seems like a reasonable default.
+      quota: {
+        limit: 500,
+        period: aws_apigateway.Period.DAY,
+      },
     });
+
+    plan.addApiKey(key);
+    plan.addApiStage({ stage: api.deploymentStage });
+
+    const items = api.root.addResource("secrets");
+    items.addMethod("POST", undefined, { apiKeyRequired: true }); // POST /secrets
+    const item = items.addResource("{id}");
+    item.addMethod("DELETE", undefined, { apiKeyRequired: true }); // DELETE /secrets/{id}
   }
 }

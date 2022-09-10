@@ -26,20 +26,13 @@ jobs:
       - name: Configure .npmrc
         uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-
-      - name: Build the Lambda functions package
-        working-directory: ./lambda-functions
-        run: |
-          npm ci
-          npm run build
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: Build the construct package
         run: |
           npm ci
           npm run build
-          cp -r lambda-functions/dist dist/constructs/lambda/assets
 
       - name: Run semantic release
         run: npx semantic-release
