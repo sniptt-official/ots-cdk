@@ -23,11 +23,11 @@
     "typescript": "^4.8"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.40",
+    "aws-cdk-lib": "^2.80",
     "constructs": "^10.1"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.40",
+    "aws-cdk-lib": "^2.80",
     "constructs": "^10.1"
   }
 }
